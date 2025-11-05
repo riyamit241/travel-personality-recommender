@@ -280,6 +280,12 @@ def explain_mbti(mbti_type):
     parts = [explanations.get(c, c) for c in mbti_type]
     return f"{parts[0]}, {parts[1]}, {parts[2]}, {parts[3]}"
 
+def get_recommendations(mbti_type):
+    """Public function so other scripts (like app.py) can use it"""
+    recommender = TravelRecommender(df)
+    recommendations = recommender.recommend_by_mbti(mbti_type, top_n=5)
+    return recommendations
+
 
 if __name__ == "__main__":
     main()
