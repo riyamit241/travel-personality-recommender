@@ -1,9 +1,9 @@
 import streamlit as st
 import pandas as pd
-from recommender import TravelRecommender
+from travel_recommender import TravelRecommender
 
 # Load data as done in travel_recommender.py
-df = pd.read_csv("your_data.csv")
+df = pd.read_csv("clean_travel_data.csv")
 recommender = TravelRecommender(df)
 
 st.title("Personality-based Travel Recommender")
