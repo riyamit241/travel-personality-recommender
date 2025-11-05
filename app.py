@@ -45,7 +45,7 @@ if st.button("✨ Get Recommendations"):
     try:
         # Call your recommender function here
         recommendations = get_recommendations(
-            personality=personality,
+            mbti_type=mbti_input,
             preferences=travel_type,
             budget=budget,
             duration=duration
