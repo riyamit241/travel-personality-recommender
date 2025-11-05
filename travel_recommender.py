@@ -280,11 +280,24 @@ def explain_mbti(mbti_type):
     parts = [explanations.get(c, c) for c in mbti_type]
     return f"{parts[0]}, {parts[1]}, {parts[2]}, {parts[3]}"
 
-def get_recommendations(mbti_type):
-    """Public function so other scripts (like app.py) can use it"""
-    recommender = TravelRecommender(df)
-    recommendations = recommender.recommend_by_mbti(mbti_type, top_n=5)
-    return recommendations
+def get_recommendations(self, personality_input, top_n=5):
+    """
+    Accepts 16 Personalities MBTI string or Big Five dict,
+    returns top destinations as a list of dicts.
+    """
+    # Convert MBTI to preferences if input is string
+    if isinstance(personality_input, str):
+        prefs = self.mapper.mbti_to_travel_preferences(personality_input)
+    elif isinstance(personality_input, dict):
+        # If dict (Big Five scores) convert accordingly here
+        # For now, use mbti_to_travel_preferences for simplicity
+        prefs = self.mapper.big5_to_travel_preferences(personality_input)
+    else:
+        raise ValueError("Invalid personality input")
+    
+    rec_df = self.recommend(prefs, top_n=top_n)
+    # Convert to list of dicts
+    return rec_df.to_dict(orient='records')
 
 
 if __name__ == "__main__":
