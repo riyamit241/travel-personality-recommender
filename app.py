@@ -16,15 +16,12 @@ valid_mbti_types = ['INTJ', 'INTP', 'ENTJ', 'ENTP',
 personality_type = st.text_input("Enter your 16 Personalities type (e.g., ENFP):")
 
 if st.button("Get Recommendations"):
-    if not personality_type:
-        st.error("Please enter your 16 Personalities type")
-    elif len(personality_type) == 4:
+    pt = personality_type.upper()
+    if pt not in valid_mbti_types:
+        st.error("Please enter a valid MBTI type (e.g., ENFP)")
+    else:
         try:
-            recs = recommender.get_recommendations(personality_type.upper(), top_n=5)
-            st.success(f"Top 5 destinations for {personality_type.upper()}:")
-            for i, rec in enumerate(recs, 1):
-                st.write(f"{i}. {rec['city']}, {rec['country']} - Rating: {rec['avg_rating']}, Cost: ${rec['avg_cost_(usd/day)']}/day")
+            recs = recommender.get_recommendations(pt, top_n=5)
+            # display recommendations ...
         except Exception as e:
             st.error(f"Error: {e}")
-    else:
-        st.error("Please enter a valid 4-letter MBTI type")
