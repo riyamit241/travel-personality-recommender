@@ -8,6 +8,11 @@ recommender = TravelRecommender(df)
 
 st.title("Personality-based Travel Recommender")
 
+valid_mbti_types = ['INTJ', 'INTP', 'ENTJ', 'ENTP',
+                    'INFJ', 'INFP', 'ENFJ', 'ENFP',
+                    'ISTJ', 'ISFJ', 'ESTJ', 'ESFJ',
+                    'ISTP', 'ISFP', 'ESTP', 'ESFP']
+
 personality_type = st.text_input("Enter your 16 Personalities type (e.g., ENFP):")
 
 if st.button("Get Recommendations"):
