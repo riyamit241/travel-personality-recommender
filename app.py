@@ -22,6 +22,9 @@ if st.button("Get Recommendations"):
     else:
         try:
             recs = recommender.get_recommendations(pt, top_n=5)
-            # display recommendations ...
+            st.success(f"Top 5 destinations for {pt}:")
+            for i, rec in enumerate(recs, 1):
+                st.write(f"{i}. {rec['city']}, {rec['country']} - Rating: {rec['avg_rating']}, Cost: ${rec['avg_cost_(usd/day)']}/day")
         except Exception as e:
             st.error(f"Error: {e}")
+
